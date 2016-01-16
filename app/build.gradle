@@ -34,7 +34,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+         main {
+             java {
+                 exclude 'dk'
+             }
+         }
+         androidTest {
+             java {
+                 exclude '**/TestSomeExcludedClass.java'
+            }
+         }
+    }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
