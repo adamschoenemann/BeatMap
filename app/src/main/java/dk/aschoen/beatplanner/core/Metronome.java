@@ -47,7 +47,7 @@ public class Metronome
         return beats;
     }
 
-    public void setBeats(int value) {
+    public synchronized void setBeats(int value) {
         beats = value;
     }
 
@@ -56,7 +56,7 @@ public class Metronome
         return bars;
     }
 
-    public void setBars(int value) {
+    public synchronized void setBars(int value) {
         bars = value;
     }
 
@@ -64,7 +64,7 @@ public class Metronome
         return bEnum.beat;
     }
 
-    public void setBeat(Beat value) {
+    public synchronized void setBeat(Beat value) {
         bEnum = new BeatEnumerator(value);
     }
 
@@ -73,7 +73,7 @@ public class Metronome
     }
 
 
-    public void setBPM(int value) {
+    public synchronized void setBPM(int value) {
         int oldBPM = getBeat().getBPM();
         this.setBeat(new Beat(getBeat().getMeter(), value));
         for(OnBPMChangedListener h : onBpmChangedListeners)
@@ -84,7 +84,7 @@ public class Metronome
         return getBeat().getMeter();
     }
 
-    public void setMeter(Meter value) {
+    public synchronized void setMeter(Meter value) {
         setBeat(new Beat(value, getBeat().getBPM()));
     }
 
@@ -142,7 +142,7 @@ public class Metronome
         thread.start();
     }
 
-    public boolean toggle() {
+    public synchronized boolean toggle() {
         if (isPlaying())
         {
             stop();
@@ -153,19 +153,9 @@ public class Metronome
         return true;
     }
 
-    public void stop() {
-        if (thread != null && thread.isAlive())
-        {
-            shouldStop = true;
-            try {
-                thread.join();
-            }
-            catch (InterruptedException e){
-                e.printStackTrace();
-            }
-        }
-//            Console.WriteLine("Metronome stopped");
-
+    public synchronized void stop() {
+        shouldStop = true;
+        return;
     }
 
     public void reset() {
