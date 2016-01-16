@@ -5,31 +5,29 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-
 /**
  * Created by Wolf on 16/01/2016.
  */
-public class SessionDBHandler {
+public class TrackDBHandler {
 
     private SQLiteDatabase db;
     private final String[] PROJECTION = {
-            DBContract.SessionsTable.COLUMN_NAME_BPM,
-            DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR,
-            DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR,
-            DBContract.SessionsTable.COLUMN_NAME_BARS
+            DBContract.TrackTable.COLUMN_NAME_BPM,
+            DBContract.TrackTable.COLUMN_NAME_METER_NUMERATOR,
+            DBContract.TrackTable.COLUMN_NAME_METER_DENOMINATOR,
+            DBContract.TrackTable.COLUMN_NAME_BARS
     };
-    private final String TABLE_NAME = DBContract.SessionsTable.TABLE_NAME;
-    private final String WHERE_SESSION = DBContract.SessionsTable.COLUMN_NAME_SESSION_ID + "=?";
+    private final String TABLE_NAME = DBContract.TrackTable.TABLE_NAME;
+    private final String WHERE_SESSION = DBContract.TrackTable.COLUMN_NAME_SESSION_ID + "=?";
 
-    private final String BPM_NAME = DBContract.SessionsTable.COLUMN_NAME_BPM;
-    private final String METER_NUMERATOR_NAME = DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR;
-    private final String METER_DENOMINATOR_NAME = DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR;
-    private final String BARS_NAME = DBContract.SessionsTable.COLUMN_NAME_BARS;
+    private final String BPM_NAME = DBContract.TrackTable.COLUMN_NAME_BPM;
+    private final String METER_NUMERATOR_NAME = DBContract.TrackTable.COLUMN_NAME_METER_NUMERATOR;
+    private final String METER_DENOMINATOR_NAME = DBContract.TrackTable.COLUMN_NAME_METER_DENOMINATOR;
+    private final String BARS_NAME = DBContract.TrackTable.COLUMN_NAME_BARS;
 
 
-    public SessionDBHandler(Context context) {
-        SessionDB mDbHelper = new SessionDB(context);
+    public TrackDBHandler(Context context) {
+        TrackDB mDbHelper = new TrackDB(context);
         db = mDbHelper.getWritableDatabase();
     }
 
@@ -47,8 +45,8 @@ public class SessionDBHandler {
         for (int i = 0; i < beat_placeholder.length; i++) {
             ContentValues values = extractContent(beat_placeholder[i]);
 
-            values.put(DBContract.SessionsTable.COLUMN_NAME_SESSION_ID, session_id);
-            values.put(DBContract.SessionsTable.COLUMN_NAME_BEAT_ID, i);
+            values.put(DBContract.TrackTable.COLUMN_NAME_SESSION_ID, session_id);
+            values.put(DBContract.TrackTable.COLUMN_NAME_BEAT_ID, i);
 
             db.insert(TABLE_NAME, null, values);
         }
@@ -92,11 +90,13 @@ public class SessionDBHandler {
 
         int pos = -1;
         c.moveToPosition(pos);
+
+        // TODO Use Beat objects
         String[] beats = new String[c.getCount()];
 
         while (c.moveToNext()) {
             pos++;
-            // TODO Convert entries to Beats
+            // TODO Convert entries to Beat objects
 
             bpm = c.getInt(bpm_index);
             meter_numerator = c.getInt(meter_numerator_index);

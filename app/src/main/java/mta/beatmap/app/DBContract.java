@@ -12,7 +12,7 @@ public final class DBContract {
     public DBContract() {}
 
     /* Sessions table contents */
-    public static abstract class SessionsTable implements BaseColumns {
+    public static abstract class TrackTable implements BaseColumns {
         public static final String TABLE_NAME = "sessions";
         public static final String COLUMN_NAME_SESSION_ID = "sessionid";
         public static final String COLUMN_NAME_BEAT_ID = "beatid";
