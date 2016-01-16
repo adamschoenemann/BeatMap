@@ -17,6 +17,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditBeatActivity"></activity>
+        <activity
+            android:name=".MetroActivity"
+            android:label="@string/title_activity_metro" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
+
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
 
 </manifest>

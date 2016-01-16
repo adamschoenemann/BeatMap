@@ -97,7 +97,7 @@ public class Metronome
         public void onBeatEvent(int index, int beats, int bars);
     }
     private ArrayList<OnBeatEventListener> onBeatEventListeners = new ArrayList<OnBeatEventListener>();
-    public void OnBeatEvent(OnBeatEventListener h) {
+    public void onBeatEvent(OnBeatEventListener h) {
         onBeatEventListeners.add(h);
     }
 
@@ -172,7 +172,10 @@ public class Metronome
         setBeats(0);
         setBars(0);
         bEnum = new BeatEnumerator(bEnum.beat);
+    }
 
+    public void removeBeatEventListeners() {
+        this.onBeatEventListeners.clear();
     }
 
     public void restart() {
