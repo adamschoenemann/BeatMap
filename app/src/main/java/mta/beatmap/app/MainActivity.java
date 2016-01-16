@@ -1,6 +1,7 @@
 package mta.beatmap.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,12 +26,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onNewBeatClick(View view){
+        /*
         Context context = getApplicationContext();
         CharSequence text = "Hello toast!";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+        */
+
+        Intent intent = new Intent(this, EditBeatActivity.class);
+        startActivity(intent);
     }
 
     @Override
