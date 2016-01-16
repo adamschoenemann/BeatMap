@@ -41,7 +41,7 @@ public class Track
         Sequence seq;
         for (String line : lines) {
             seq = parseSequence(line);
-            track.appendSequence(seq.getBeat(), seq.reps);
+            track.appendSequence(seq.getBeat(), seq.getBars());
         }
         return track;
     }
@@ -55,7 +55,7 @@ public class Track
         for (Object __dummyForeachVar0 : sequences)
         {
             Sequence seq = (Sequence)__dummyForeachVar0;
-            sb.append(String.format("%s %d %d\n", seq.getBeat().getMeter(), seq.getBeat().getBPM(), seq.reps));
+            sb.append(String.format("%s %d %d\n", seq.getBeat().getMeter(), seq.getBeat().getBPM(), seq.getBars()));
         }
         return sb.toString();
     }

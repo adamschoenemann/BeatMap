@@ -14,6 +14,10 @@ import dk.aschoen.beatplanner.core.Beat;
 import dk.aschoen.beatplanner.core.Meter;
 import dk.aschoen.beatplanner.core.Metronome;
 
+@Deprecated
+/**
+ * @deprecated Only used for testing purposes
+ */
 public class MetroActivity extends AppCompatActivity {
 
     private Metronome metronome;

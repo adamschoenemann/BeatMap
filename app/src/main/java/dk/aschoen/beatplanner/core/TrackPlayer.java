@@ -12,6 +12,8 @@ public class TrackPlayer
     private boolean shouldPlay = false;
 
     private int index;
+    private Thread thread;
+
     public int getIndex() {
         return index;
     }
@@ -27,7 +29,7 @@ public class TrackPlayer
     }
 
     public void playAsync() {
-        Thread thread = new Thread(new Runnable() {
+        thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 play();
@@ -36,11 +38,16 @@ public class TrackPlayer
         thread.start();
     }
 
+    public boolean isPlaying() {
+       return shouldPlay;
+    }
+
     public void stop() {
         shouldPlay = false;
     }
 
     public void reset() {
+        shouldPlay = false;
         index = 0;
     }
 
@@ -49,7 +56,7 @@ public class TrackPlayer
         Sequence[] sequences = track.getSequences();
         Sequence seq = sequences[getIndex()];
         Beat beat = seq.getBeat();
-        int reps = seq.reps;
+        int reps = seq.getBars();
         int nextChange = reps;
         metro.setBeat(beat);
         metro.start();
@@ -63,12 +70,13 @@ public class TrackPlayer
                 index++;
                 seq = sequences[getIndex()];
                 beat = seq.getBeat();
-                reps = seq.reps;
+                reps = seq.getBars();
                 metro.setBeat(beat);
                 nextChange += reps;
             }
 
         }
+        shouldPlay = false;
         metro.stop();
     }
 
