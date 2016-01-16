@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SessionDB extends SQLiteOpenHelper {
 
-    private static final String TEXT_TYPE = " TEXT";
     private static final String UINT_TYPE = " INTEGER";
     private static final String ID_TYPE = " INTEGER";
 
@@ -32,7 +31,7 @@ public class SessionDB extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "FeedReader.db";
+    public static final String DATABASE_NAME = "Session.db";
 
     public SessionDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

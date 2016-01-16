@@ -22,67 +22,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fillDB();
+        testDB();
         initializeListView();
-
-        testReadDB();
-
-
     }
 
-    private void testReadDB() {
-        SessionDB mDbHelper = new SessionDB(this);
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+    private void testDB() {
+        SessionDBHandler sdh = new SessionDBHandler(this);
 
-        String[] projection = {
-            DBContract.SessionsTable.COLUMN_NAME_BPM,
-            DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR,
-            DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR,
-            DBContract.SessionsTable.COLUMN_NAME_BARS
-        };
+        String sessionID = "1";
+        sdh.upsert(sessionID , new String[] {"my ignored input"} );
+        String[] res = sdh.getSession(sessionID );
 
-        String selection = DBContract.SessionsTable.COLUMN_NAME_SESSION_ID + " = ?";
-        String[] selectionVals = {"1"};
-
-        Cursor c = db.query(
-                DBContract.SessionsTable.TABLE_NAME,  // The table to query
-                projection,                               // The columns to return
-                selection,                                // The string for the WHERE clause
-                selectionVals,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null // The sort order
-        );
-
-        int bpm_index = c.getColumnIndexOrThrow(DBContract.SessionsTable.COLUMN_NAME_BPM);
-
-        c.moveToFirst();
-        long itemId = c.getLong(bpm_index);
-
-        System.out.println("itemId" + itemId);
-
-    }
-
-    private void fillDB() {
-        // Gets the data repository in write mode
-        SessionDB mDbHelper = new SessionDB(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-        System.out.println("Yay!");
-        
-//        // Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(DBContract.SessionsTable.COLUMN_NAME_SESSION_ID, 1);
-        values.put(DBContract.SessionsTable.COLUMN_NAME_BEAT_ID, 12);
-        values.put(DBContract.SessionsTable.COLUMN_NAME_BPM, 120);
-        values.put(DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR, 5);
-        values.put(DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR, 8);
-        values.put(DBContract.SessionsTable.COLUMN_NAME_BARS, 10);
-
-        long newRowId;
-        newRowId = db.insert(
-                DBContract.SessionsTable.TABLE_NAME,
-                null,
-                values);
+        for (int i = 0; i < res.length; i++) {
+            System.out.println(i + ": " + res[i]);
+        }
     }
 
     @Override
