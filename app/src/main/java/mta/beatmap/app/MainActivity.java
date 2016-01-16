@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +14,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        testDB();
+    }
+
+    private void testDB() {
+        TrackDBHandler tdh = new TrackDBHandler(this);
+
+        String sessionID = "1";
+        tdh.upsert(sessionID, new String[]{"my ignored input"});
+        String[] res = tdh.getSession(sessionID );
+
+        for (int i = 0; i < res.length; i++) {
+            System.out.println(i + ": " + res[i]);
+        }
     }
 
     @Override
