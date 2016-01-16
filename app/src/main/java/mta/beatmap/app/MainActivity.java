@@ -8,6 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import dk.aschoen.beatplanner.core.Sequence;
+import dk.aschoen.beatplanner.core.Track;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -21,11 +24,14 @@ public class MainActivity extends AppCompatActivity {
         TrackDBHandler tdh = new TrackDBHandler(this);
 
         String sessionID = "1";
-        tdh.upsert(sessionID, new String[]{"my ignored input"});
-        String[] res = tdh.getSession(sessionID );
+        Track track = new Track();
+        track.appendSequence(new Sequence(100, 4, 4, 10));
+        track.appendSequence(new Sequence(150, 3, 8, 20));
+        tdh.upsert(sessionID, track);
+        Track res = tdh.getSession(sessionID );
 
-        for (int i = 0; i < res.length; i++) {
-            System.out.println(i + ": " + res[i]);
+        for (int i = 0; i < res.size(); i++) {
+            System.out.println(i + ": " + res.get(i).toString());
         }
     }
 

@@ -5,6 +5,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import dk.aschoen.beatplanner.core.Beat;
+import dk.aschoen.beatplanner.core.Meter;
+import dk.aschoen.beatplanner.core.Sequence;
+import dk.aschoen.beatplanner.core.Track;
+
 /**
  * Created by Wolf on 16/01/2016.
  */
@@ -31,19 +36,19 @@ public class TrackDBHandler {
         db = mDbHelper.getWritableDatabase();
     }
 
-    public void upsert(String session_id, String[] beat_placeholder) {
+    public void upsert(String session_id, Track track) {
         delete(session_id);
-        insert(session_id, beat_placeholder);
+        insert(session_id, track);
     }
 
     private void delete(String session_id) {
         db.delete(TABLE_NAME, WHERE_SESSION, new String[]{session_id});
     }
 
-    private void insert(String session_id, String[] beat_placeholder) {
+    private void insert(String session_id, Track track) {
 
-        for (int i = 0; i < beat_placeholder.length; i++) {
-            ContentValues values = extractContent(beat_placeholder[i]);
+        for (int i = 0; i < track.size(); i++) {
+            ContentValues values = extractContent(track.get(i));
 
             values.put(DBContract.TrackTable.COLUMN_NAME_SESSION_ID, session_id);
             values.put(DBContract.TrackTable.COLUMN_NAME_BEAT_ID, i);
@@ -52,19 +57,21 @@ public class TrackDBHandler {
         }
     }
 
-    private ContentValues extractContent(String beat_placeholder) {
+    private ContentValues extractContent(Sequence seq) {
         ContentValues values = new ContentValues();
 
-        // TODO extract actual values from beat object
-        values.put(BPM_NAME, 120);
-        values.put(METER_NUMERATOR_NAME, 5);
-        values.put(METER_DENOMINATOR_NAME, 8);
-        values.put(BARS_NAME, 10);
+        Beat beat = seq.getBeat();
+        Meter meter = beat.getMeter();
+
+        values.put(BPM_NAME, beat.getBPM());
+        values.put(METER_NUMERATOR_NAME, meter.getNumerator());
+        values.put(METER_DENOMINATOR_NAME, meter.getDenominator());
+        values.put(BARS_NAME, seq.getBars());
 
         return values;
     }
 
-    public String[] getSession(String session_id) {
+    public Track getSession(String session_id) {
 
         String[] selectionVals = {session_id};
 
@@ -88,28 +95,22 @@ public class TrackDBHandler {
         int meter_denominator;
         int bars;
 
-        int pos = -1;
-        c.moveToPosition(pos);
+        c.moveToPosition(-1); // Start just before the first value
 
-        // TODO Use Beat objects
-        String[] beats = new String[c.getCount()];
+        Track track = new Track();
 
+        // Loop while there is a next row
         while (c.moveToNext()) {
-            pos++;
-            // TODO Convert entries to Beat objects
-
             bpm = c.getInt(bpm_index);
             meter_numerator = c.getInt(meter_numerator_index);
             meter_denominator = c.getInt(meter_denominator_index);
             bars = c.getInt(bars_index);
 
-            String beat_placeholder = bpm + " " + meter_numerator + " "
-                                    + meter_denominator + " " + bars;
-
-            beats[pos] = beat_placeholder;
+            Sequence seq = new Sequence(bpm, meter_numerator, meter_denominator, bars);
+            track.appendSequence(seq);
         }
 
-        return beats;
+        return track;
     }
 
 }

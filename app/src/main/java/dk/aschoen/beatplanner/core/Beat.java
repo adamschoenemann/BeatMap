@@ -38,6 +38,10 @@ public class Beat
         return meter;
     }
 
+    @Override
+    public String toString() {
+        return "Meter: " + meter.toString() + " BPM: " + BPM;
+    }
 }
 
 

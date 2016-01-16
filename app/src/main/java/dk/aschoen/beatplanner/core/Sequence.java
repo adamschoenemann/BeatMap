@@ -5,8 +5,6 @@
 package dk.aschoen.beatplanner.core;
 
 
-import dk.aschoen.beatplanner.core.Beat;
-
 public class Sequence
 {
     private final Beat beat;
@@ -15,6 +13,10 @@ public class Sequence
     public Sequence(Beat beat, int bars) {
         this.beat = beat;
         this.bars = bars;
+    }
+
+    public Sequence(int BPM, int meter_numerator, int meter_denominator, int bars) {
+        this(new Beat(new Meter(meter_numerator, meter_denominator), BPM), bars);
     }
 
     public Sequence setBars(int bars) {
@@ -32,6 +34,11 @@ public class Sequence
 
     public Beat getBeat() {
         return beat;
+    }
+
+    @Override
+    public String toString() {
+        return beat.toString() + " bars: " + bars;
     }
 }
 

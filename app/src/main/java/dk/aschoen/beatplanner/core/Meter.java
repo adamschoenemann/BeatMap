@@ -25,7 +25,7 @@ public class Meter {
     @Override
     public String toString() {
         try {
-            return String.format("%d/%d}", getUpper(), getLower());
+            return String.format("%d/%d", getUpper(), getLower());
         } catch (RuntimeException e) {
             throw e;
         }

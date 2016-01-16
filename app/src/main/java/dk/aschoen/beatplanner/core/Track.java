@@ -16,8 +16,10 @@ public class Track
     }
 
     public void appendSequence(Beat beat, int reps) {
-        sequences.add(new Sequence(beat, reps));
+        appendSequence(new Sequence(beat, reps));
     }
+
+    public void appendSequence(Sequence sequence) { sequences.add(sequence); }
 
     public void prependSequence(Beat beat, int reps) {
         sequences.add(0, new Sequence(beat, reps));
@@ -58,6 +60,14 @@ public class Track
             sb.append(String.format("%s %d %d\n", seq.getBeat().getMeter(), seq.getBeat().getBPM(), seq.getBars()));
         }
         return sb.toString();
+    }
+
+    public int size() {
+        return sequences.size();
+    }
+
+    public Sequence get(int index) {
+        return sequences.get(index);
     }
 
 }
