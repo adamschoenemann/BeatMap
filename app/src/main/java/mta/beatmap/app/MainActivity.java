@@ -41,20 +41,23 @@ public class MainActivity extends AppCompatActivity {
             DBContract.SessionsTable.COLUMN_NAME_BARS
         };
 
+        String selection = DBContract.SessionsTable.COLUMN_NAME_SESSION_ID + " = ?";
+        String[] selectionVals = {"1"};
+
         Cursor c = db.query(
                 DBContract.SessionsTable.TABLE_NAME,  // The table to query
                 projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
+                selection,                                // The string for the WHERE clause
+                selectionVals,                            // The values for the WHERE clause
                 null,                                     // don't group the rows
                 null,                                     // don't filter by row groups
                 null // The sort order
         );
 
+        int bpm_index = c.getColumnIndexOrThrow(DBContract.SessionsTable.COLUMN_NAME_BPM);
+
         c.moveToFirst();
-        long itemId = c.getLong(
-                c.getColumnIndexOrThrow(DBContract.SessionsTable.COLUMN_NAME_BPM)
-        );
+        long itemId = c.getLong(bpm_index);
 
         System.out.println("itemId" + itemId);
 
