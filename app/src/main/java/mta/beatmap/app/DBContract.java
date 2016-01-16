@@ -6,12 +6,12 @@ import android.provider.BaseColumns;
  * Created by Wolf on 16/01/2016.
  */
 
-public final class SessionDBContract {
+public final class DBContract {
     // To prevent someone from accidentally instantiating the contract class,
     // give it an empty constructor.
-    public SessionDBContract() {}
+    public DBContract() {}
 
-    /* Inner class that defines the table contents */
+    /* Sessions table contents */
     public static abstract class SessionsTable implements BaseColumns {
         public static final String TABLE_NAME = "sessions";
         public static final String COLUMN_NAME_SESSION_ID = "sessionid";

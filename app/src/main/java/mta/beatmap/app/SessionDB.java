@@ -17,18 +17,18 @@ public class SessionDB extends SQLiteOpenHelper {
 
     private static final String COMMA_SEP = ",";
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + SessionDBContract.SessionsTable.TABLE_NAME + " (" +
-                    SessionDBContract.SessionsTable._ID + ID_TYPE + " PRIMARY KEY," +
-                    SessionDBContract.SessionsTable.COLUMN_NAME_SESSION_ID + ID_TYPE + COMMA_SEP +
-                    SessionDBContract.SessionsTable.COLUMN_NAME_BEAT_ID + ID_TYPE + COMMA_SEP +
-                    SessionDBContract.SessionsTable.COLUMN_NAME_BARS + UINT_TYPE + COMMA_SEP +
-                    SessionDBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR + UINT_TYPE + COMMA_SEP +
-                    SessionDBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR + UINT_TYPE + COMMA_SEP +
-                    SessionDBContract.SessionsTable.COLUMN_NAME_BPM + UINT_TYPE +
+            "CREATE TABLE " + DBContract.SessionsTable.TABLE_NAME + " (" +
+                    DBContract.SessionsTable._ID + ID_TYPE + " PRIMARY KEY," +
+                    DBContract.SessionsTable.COLUMN_NAME_SESSION_ID + ID_TYPE + COMMA_SEP +
+                    DBContract.SessionsTable.COLUMN_NAME_BEAT_ID + ID_TYPE + COMMA_SEP +
+                    DBContract.SessionsTable.COLUMN_NAME_BARS + UINT_TYPE + COMMA_SEP +
+                    DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR + UINT_TYPE + COMMA_SEP +
+                    DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR + UINT_TYPE + COMMA_SEP +
+                    DBContract.SessionsTable.COLUMN_NAME_BPM + UINT_TYPE +
             " )";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + SessionDBContract.SessionsTable.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + DBContract.SessionsTable.TABLE_NAME;
 
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;

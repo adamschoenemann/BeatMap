@@ -1,16 +1,15 @@
 package mta.beatmap.app;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +25,38 @@ public class MainActivity extends AppCompatActivity {
         fillDB();
         initializeListView();
 
+        testReadDB();
+
+
+    }
+
+    private void testReadDB() {
+        SessionDB mDbHelper = new SessionDB(this);
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+        String[] projection = {
+            DBContract.SessionsTable.COLUMN_NAME_BPM,
+            DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR,
+            DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR,
+            DBContract.SessionsTable.COLUMN_NAME_BARS
+        };
+
+        Cursor c = db.query(
+                DBContract.SessionsTable.TABLE_NAME,  // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null // The sort order
+        );
+
+        c.moveToFirst();
+        long itemId = c.getLong(
+                c.getColumnIndexOrThrow(DBContract.SessionsTable.COLUMN_NAME_BPM)
+        );
+
+        System.out.println("itemId" + itemId);
 
     }
 
@@ -36,18 +67,19 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Yay!");
         
 //        // Create a new map of values, where column names are the keys
-//        ContentValues values = new ContentValues();
-//        values.put(SessionDBContract.SessionsTable.COLUMN_NAME_ENTRY_ID, id);
-//        values.put(SessionDBContract.SessionsTable.COLUMN_NAME_TITLE, title);
-//        values.put(SessionDBContract.SessionsTable.COLUMN_NAME_CONTENT, content);
-//
-//// Insert the new row, returning the primary key value of the new row
-//        long newRowId;
-//        newRowId = db.insert(
-//                SessionDBContract.SessionsTable.TABLE_NAME,
-//                SessionDBContract.SessionsTable.COLUMN_NAME_NULLABLE,
-//                values);
+        ContentValues values = new ContentValues();
+        values.put(DBContract.SessionsTable.COLUMN_NAME_SESSION_ID, 1);
+        values.put(DBContract.SessionsTable.COLUMN_NAME_BEAT_ID, 12);
+        values.put(DBContract.SessionsTable.COLUMN_NAME_BPM, 120);
+        values.put(DBContract.SessionsTable.COLUMN_NAME_METER_NUMERATOR, 5);
+        values.put(DBContract.SessionsTable.COLUMN_NAME_METER_DENOMINATOR, 8);
+        values.put(DBContract.SessionsTable.COLUMN_NAME_BARS, 10);
 
+        long newRowId;
+        newRowId = db.insert(
+                DBContract.SessionsTable.TABLE_NAME,
+                null,
+                values);
     }
 
     @Override
