@@ -8,5 +8,10 @@
             android:layout_height="wrap_content"
             android:onClick="play"
             android:text="Play MIDI" />
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="stop"
+            android:text="Stop midi" />
 
 </LinearLayout>

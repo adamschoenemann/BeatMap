@@ -74,44 +74,6 @@ public class MidiActivity extends Activity {
         }
     }
 
-    public void createNewMIDIFile() {
-        Integer[] stream = new Integer[]{
-                //
-                0x4d, 0x54, 0x68, 0x64, // MThd = MIDI file designator
-                0x00, 0x00, 0x00, 0x06, // Standard MIDI File (SMF)
-                0x00, 0x01, 0x00, 0x02, // multiple-track format: 2 tracks
-                0x00, 0x40, // 64 ticks per beat (quarter note)
-                0x4D, 0x54, 0x72, 0x6B, // Header for track 1
-                0x00, 0x00, 0x00, 0x0B, // 11  bytes to describe the track
-                0x00, 0xFF, 0x51, 0x03, // set tempo:
-                0x0F, 0x42, 0x40, //  1,000,000 microseconds / beat: 60 bpm
-                0x00, 0xFF, 0x2F, 0x00, // End of track 1
-                0x4D, 0x54, 0x72, 0x6B, // Header for track 2
-                0x00, 0x00, 0x00, 0x0F, // 15 bytes to describe the track
-                0x00, // Immediately
-                0xC1, 0x01, // change instrument for track 2 to piano
-                0x00, // Immediately
-                0x91, 0x3C, 0x7F, // play middle C with a velocity of 127
-                0x30, // 48 ticks later (dotted eighth note)
-                0x81, 0x3C, 0x00, // stop playing the middle C
-                0x00, 0xFF, 0x2F, 0x00 // End of track 2
-        };
-
-        int length = stream.length;
-        byte[] byteStream = new byte[length];
-        for (int ii = 0; ii < length; ii++) {
-            byteStream[ii] = (byte) (stream[ii] % 256);
-        }
-
-        try {
-            FileOutputStream outputStream = openFileOutput(file, MODE_PRIVATE);
-            outputStream.write(byteStream);
-            outputStream.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Midi file " + file + " could not be found");
-        }
-    }
 
     public void play(View view) {
   /* Triggered by a button defined in activity_main.xml as
@@ -132,11 +94,16 @@ public class MidiActivity extends Activity {
             FileDescriptor fileDescriptor = inputStream.getFD();
             mediaPlayer.reset();
             mediaPlayer.setDataSource(fileDescriptor);
+            mediaPlayer.setDa
             inputStream.close();
             mediaPlayer.prepare();
             mediaPlayer.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void stop(View view) {
+        mediaPlayer.stop();
     }
 }
