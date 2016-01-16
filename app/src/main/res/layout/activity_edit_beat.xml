@@ -71,11 +71,15 @@
         android:id="@+id/textBpm"
         android:text="@string/bpm"/>
 
-    <EditText
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:inputType="numberSigned"
-        android:ems="10"
-        android:id="@+id/editBpm" />
+    <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editBpm"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:onClick="toggleMetronome"
+            android:id="@+id/toggleBtn"/>
 
 </LinearLayout>

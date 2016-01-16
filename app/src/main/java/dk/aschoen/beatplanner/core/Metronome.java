@@ -75,7 +75,7 @@ public class Metronome
 
     public void setBPM(int value) {
         int oldBPM = getBeat().getBPM();
-        getBeat().setBPM(value);
+        this.setBeat(new Beat(getBeat().getMeter(), value));
         for(OnBPMChangedListener h : onBpmChangedListeners)
             h.onBPMChanged(oldBPM, value);
     }

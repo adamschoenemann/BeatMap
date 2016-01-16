@@ -9,6 +9,10 @@ public class Beat
         this.meter = meter;
     }
 
+    public Beat(Beat beat) {
+        this(beat.getMeter(), beat.getBPM());
+    }
+
     public static Beat parse(String[] splits) {
         String bpmStr = splits[1];
         int bpm = Integer.valueOf(bpmStr);
@@ -34,9 +38,6 @@ public class Beat
         return meter;
     }
 
-    public void setBPM(int BPM) {
-        this.BPM = BPM;
-    }
 }
 
 
