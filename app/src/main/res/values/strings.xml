@@ -2,5 +2,6 @@
     <string name="app_name">BeatMap</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="boxtext">4/4, T=120, 12 bars</string>
     <string name="action_settings">Settings</string>
 </resources>
