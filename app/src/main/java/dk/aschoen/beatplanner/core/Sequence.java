@@ -5,8 +5,6 @@
 package dk.aschoen.beatplanner.core;
 
 
-import dk.aschoen.beatplanner.core.Beat;
-
 public class Sequence
 {
     private final Beat beat;
