@@ -23,7 +23,7 @@ public class TrackDBHandler {
             DBContract.TrackTable.COLUMN_NAME_BARS
     };
     private final String TABLE_NAME = DBContract.TrackTable.TABLE_NAME;
-    private final String WHERE_SESSION = DBContract.TrackTable.COLUMN_NAME_SESSION_ID + "=?";
+    private final String WHERE_TRACK_ID = DBContract.TrackTable.COLUMN_NAME_TRACK_ID + "=?";
 
     private final String BPM_NAME = DBContract.TrackTable.COLUMN_NAME_BPM;
     private final String METER_NUMERATOR_NAME = DBContract.TrackTable.COLUMN_NAME_METER_NUMERATOR;
@@ -36,21 +36,21 @@ public class TrackDBHandler {
         db = mDbHelper.getWritableDatabase();
     }
 
-    public void upsert(String session_id, Track track) {
-        delete(session_id);
-        insert(session_id, track);
+    public void upsert(String trackID, Track track) {
+        delete(trackID);
+        insert(trackID, track);
     }
 
-    private void delete(String session_id) {
-        db.delete(TABLE_NAME, WHERE_SESSION, new String[]{session_id});
+    private void delete(String trackID) {
+        db.delete(TABLE_NAME, WHERE_TRACK_ID, new String[]{trackID});
     }
 
-    private void insert(String session_id, Track track) {
+    private void insert(String trackID, Track track) {
 
         for (int i = 0; i < track.size(); i++) {
             ContentValues values = extractContent(track.get(i));
 
-            values.put(DBContract.TrackTable.COLUMN_NAME_SESSION_ID, session_id);
+            values.put(DBContract.TrackTable.COLUMN_NAME_TRACK_ID, trackID);
             values.put(DBContract.TrackTable.COLUMN_NAME_BEAT_ID, i);
 
             db.insert(TABLE_NAME, null, values);
@@ -71,14 +71,14 @@ public class TrackDBHandler {
         return values;
     }
 
-    public Track getSession(String session_id) {
+    public Track getTrack(String trackID) {
 
-        String[] selectionVals = {session_id};
+        String[] selectionVals = {trackID};
 
         Cursor c = db.query(
                 TABLE_NAME,    // The table to query
                 PROJECTION,    // The columns to return
-                WHERE_SESSION, // The string for the WHERE clause
+                WHERE_TRACK_ID, // The string for the WHERE clause
                 selectionVals, // The values for the WHERE clause
                 null,          // don't group the rows
                 null,          // don't filter by row groups

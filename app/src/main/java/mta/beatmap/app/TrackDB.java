@@ -18,7 +18,7 @@ public class TrackDB extends SQLiteOpenHelper {
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + DBContract.TrackTable.TABLE_NAME + " (" +
                     DBContract.TrackTable._ID + ID_TYPE + " PRIMARY KEY," +
-                    DBContract.TrackTable.COLUMN_NAME_SESSION_ID + ID_TYPE + COMMA_SEP +
+                    DBContract.TrackTable.COLUMN_NAME_TRACK_ID + ID_TYPE + COMMA_SEP +
                     DBContract.TrackTable.COLUMN_NAME_BEAT_ID + ID_TYPE + COMMA_SEP +
                     DBContract.TrackTable.COLUMN_NAME_BARS + UINT_TYPE + COMMA_SEP +
                     DBContract.TrackTable.COLUMN_NAME_METER_NUMERATOR + UINT_TYPE + COMMA_SEP +

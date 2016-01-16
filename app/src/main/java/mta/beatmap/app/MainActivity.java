@@ -1,6 +1,5 @@
 package mta.beatmap.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -23,12 +22,12 @@ public class MainActivity extends AppCompatActivity {
     private void testDB() {
         TrackDBHandler tdh = new TrackDBHandler(this);
 
-        String sessionID = "1";
+        String trackID = "1";
         Track track = new Track();
         track.appendSequence(new Sequence(100, 4, 4, 10));
         track.appendSequence(new Sequence(150, 3, 8, 20));
-        tdh.upsert(sessionID, track);
-        Track res = tdh.getSession(sessionID );
+        tdh.upsert(trackID, track);
+        Track res = tdh.getTrack(trackID);
 
         for (int i = 0; i < res.size(); i++) {
             System.out.println(i + ": " + res.get(i).toString());
