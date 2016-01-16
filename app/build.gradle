@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "mta.beatmap.app"
-        minSdkVersion 9
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -34,7 +34,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+         main {
+             java {
+                 exclude 'dk/aschoen/beatplanner/ui/**/*'
+                 exclude '**/MetroApp.java'
+             }
+         }
+         androidTest {
+             java {
+                 exclude '**/TestSomeExcludedClass.java'
+            }
+         }
+    }
 }
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
