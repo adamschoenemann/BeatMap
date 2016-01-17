@@ -84,7 +84,7 @@ public class TrackPlayer implements Metronome.OnBeatEventListener {
     }
 
     private boolean isFinished() {
-        return sequenceIndex >= track.getSequences().length
+        return sequenceIndex >= track.getSequences().length;
     }
 
     private boolean shouldAdvanceSequence(int bars) {

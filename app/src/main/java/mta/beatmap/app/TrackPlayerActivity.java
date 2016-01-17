@@ -26,8 +26,8 @@ public class TrackPlayerActivity extends AppCompatActivity implements TrackPlaye
         track = new Track();
         track.appendSequence(new Beat(new Meter(4,4), 120), 4);
         track.appendSequence(new Beat(new Meter(3,4), 200), 4);
-        // track.appendSequence(new Beat(new Meter(3,4), 200), 8);
-        // track.appendSequence(new Beat(new Meter(2,8), 200), 3);
+        track.appendSequence(new Beat(new Meter(3,4), 200), 8);
+        track.appendSequence(new Beat(new Meter(2,8), 200), 3);
         trackPlayer = new TrackPlayer(track, new SimpleMetronome(this));
         trackPlayer.setOnTrackFinishedListener(this);
     }
