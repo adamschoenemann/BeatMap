@@ -1,5 +1,8 @@
 package mta.beatmap.app;
 
+import android.app.Activity;
+import android.app.Notification;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,10 +11,15 @@ import mta.beatmap.app.metro.config.Beat;
 import mta.beatmap.app.metro.config.Meter;
 import mta.beatmap.app.metro.Metronome;
 import mta.beatmap.app.metro.SimpleMetronome;
+import mta.beatmap.app.track.Sequence;
 
-public class EditBeatActivity extends AppCompatActivity {
+public class EditSequenceActivity extends AppCompatActivity {
 
     private Metronome metronome;
+
+    public final static String ACTION_EDIT = "edit";
+    public final static String ACTION_CREATE = "create";
+    public final static int DELETE = -2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,9 +27,31 @@ public class EditBeatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_beat);
 
         metronome = new SimpleMetronome(this);
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+
+        if (action == ACTION_EDIT) {
+            Sequence seq = new Sequence(intent.getIntArrayExtra("sequence"));
+            System.out.println("Edit action chosen for sequence " + seq.toString());
+            metronome.setBars(seq.getBars());
+            metronome.setBeat(seq.getBeat());
+        } else if (action == ACTION_CREATE) {
+            System.out.println("Create action chosen");
+        } else {
+            throw new NoSuchMethodError("Calling Intent must be ACTION_EDIT or ACTION_CREATE");
+        }
+
         loadSpinners();
+        initEditBars();
+
+        // TODO Show track title
     }
 
+    private void initEditBars() {
+        EditText editBar = (EditText) findViewById(R.id.editBars);
+        editBar.setText(Integer.toString(metronome.getBars()));
+    }
 
 
     private void loadSpinners() {
@@ -90,16 +120,68 @@ public class EditBeatActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-
         });
-
     }
 
     public void toggleMetronome(View view) {
         boolean isp = metronome.isPlaying();
         metronome.toggle();
-        String btnText = isp ? "Start" : "Stop";
+        String btnText = (String) getText(isp ? R.string.start_beat_btn : R.string.stop_beat_btn);
         Button toggleBtn = (Button) findViewById(R.id.toggleBtn);
         toggleBtn.setText(btnText);
     }
+
+    public int getBPM() {
+        NumberPicker editBPM = (NumberPicker) findViewById(R.id.editBpm);
+        return editBPM.getValue();
+    }
+
+    public int getMeterNumerator() {
+        // TODO detach from metronome object, no?
+        return metronome.getMeter().getNumerator();
+    }
+
+    public int getMeterDenominator() {
+        // TODO detach from metronome object
+        return metronome.getMeter().getDenominator();
+    }
+
+    public int getNumberOfBars() {
+        EditText editBar = (EditText) findViewById(R.id.editBars);
+        int val = Integer.parseInt(editBar.getText().toString());
+        System.out.println("Editbar value: " + val);
+        return val;
+    }
+
+    public void onDoneEditing(View view) {
+        System.out.println("clicked done editing");
+        Intent intent = new Intent();
+        int[] payload = new int[] {getBPM(),
+                                   getMeterNumerator(),
+                                   getMeterDenominator(),
+                                   getNumberOfBars()};
+        intent.putExtra("sequence", payload);
+        Intent input = getIntent();
+        if (input.hasExtra("sequenceIndex")) {
+            intent.putExtra("sequenceIndex", input.getIntExtra("sequenceIndex", -1));
+        }
+        setResult(Activity.RESULT_OK, intent);
+        finish();
+    }
+
+    public void onDeleteBeat(View view) {
+        System.out.println("clicked delete beat");
+
+//        Intent data = new Intent();
+//        data.putExtra("sequenceIndex", getIntent().getIntExtra("sequenceIndex", -1));
+        setResult(DELETE, getIntent());
+        finish();
+        // TODO consider asking user to verify
+    }
+
+    @Override
+    public void finishActivity(int requestCode) {
+        super.finishActivity(requestCode);
+    }
+
 }

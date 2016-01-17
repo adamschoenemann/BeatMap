@@ -22,6 +22,11 @@ public class Sequence
         this(new Beat(new Meter(meter_numerator, meter_denominator), BPM), bars);
     }
 
+    // packed is {BPM, meter_num, meter_denom, n_bars}
+    public Sequence(int[] packed) {
+        this(packed[0], packed[1], packed[2], packed[3]);
+    }
+
     public Sequence setBars(int bars) {
         return new Sequence(this.getBeat(), bars);
     }
@@ -37,6 +42,14 @@ public class Sequence
 
     public Beat getBeat() {
         return beat;
+    }
+
+    public int[] pack() {
+        return new int[]{this.beat.getBPM(),
+                         this.beat.getMeter().getNumerator(),
+                         this.beat.getMeter().getDenominator(),
+                         this.bars
+        };
     }
 
     @Override
