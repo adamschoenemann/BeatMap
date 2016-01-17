@@ -10,18 +10,19 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import mta.beatmap.app.persistence.db.DBHandler;
+import mta.beatmap.app.persistence.db.models.TrackModel;
 import mta.beatmap.app.sequenceListRV.SequenceRVAdapter;
 import mta.beatmap.app.sequenceListRV.SequenceVM;
-import mta.beatmap.app.track.Sequence;
 import mta.beatmap.app.track.Track;
 
 public class MainActivity extends AppCompatActivity {
 
     private List<SequenceVM> sequenceVMList;
-    private DBHandler DBHandler;
+    private DBHandler dbh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,14 +44,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initializeSequenceList(){
-        sequenceVMList = new ArrayList<SequenceVM>();
         int imgBarId = R.mipmap.ic_short_text_white_48dp;
         int imgMeterId = R.mipmap.ic_add_white_48dp;
         int imgBpmId = R.mipmap.ic_music_note_white_48dp;
 
-        DBHandler = new DBHandler(this);
-        Track track = new Track();
-        // Track track = DBHandler.getTrack(1);
+        dbh = new DBHandler(this);
+
+        List<TrackModel> tracks = dbh.getAllTracks();
+
+        Track track = tracks.get(0);
+        sequenceVMList = new ArrayList<SequenceVM>();
 
         for (int i = 0; i < track.size(); i++){
             sequenceVMList.add(new SequenceVM(track.get(i), imgBarId, imgMeterId, imgBpmId));
