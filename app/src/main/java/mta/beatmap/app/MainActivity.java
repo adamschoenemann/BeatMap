@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         testDB();
 
+        loadTrackListView();
+    }
+
+    private void loadTrackListView(){
         RecyclerView sequenceListView = (RecyclerView)findViewById(R.id.trackList);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         sequenceListView.setLayoutManager(llm);
