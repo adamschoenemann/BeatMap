@@ -27,6 +27,7 @@ import mta.beatmap.app.track.Track;
 public class MainActivity extends AppCompatActivity {
 
     private List<SequenceVM> sequenceVMList;
+    private TrackDBHandler trackDBHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadTrackListView(){
         RecyclerView sequenceListView = (RecyclerView)findViewById(R.id.trackList);
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        LinearLayoutManager llm = new LinearLayoutManager(this);
         sequenceListView.setLayoutManager(llm);
 
         initializeSequenceList();
@@ -50,18 +51,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeSequenceList(){
         sequenceVMList = new ArrayList<SequenceVM>();
-
         int imgBarId = R.mipmap.ic_short_text_white_48dp;
         int imgMeterId = R.mipmap.ic_add_white_48dp;
         int imgBpmId = R.mipmap.ic_music_note_white_48dp;
-        Sequence seq = new Sequence(new Beat(new Meter(1,4),120),10);
 
-        sequenceVMList.add(new SequenceVM(seq,imgBarId,imgMeterId,imgBpmId));
-        sequenceVMList.add(new SequenceVM(seq,imgBarId,imgMeterId,imgBpmId));
-        sequenceVMList.add(new SequenceVM(seq,imgBarId,imgMeterId,imgBpmId));
-        sequenceVMList.add(new SequenceVM(seq,imgBarId,imgMeterId,imgBpmId));
-        sequenceVMList.add(new SequenceVM(seq,imgBarId,imgMeterId,imgBpmId));
-        sequenceVMList.add(new SequenceVM(seq,imgBarId,imgMeterId,imgBpmId));
+        trackDBHandler = new TrackDBHandler(this);
+        Track track = trackDBHandler.getTrack("1");
+
+        for (int i = 0; i < track.size(); i++){
+            sequenceVMList.add(new SequenceVM(track.get(i), imgBarId, imgMeterId, imgBpmId));
+        }
     }
 
     private void testDB() {
