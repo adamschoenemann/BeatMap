@@ -1,5 +1,6 @@
 package mta.beatmap.app;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import mta.beatmap.app.metro.SimpleMetronome;
 
 public class EditBeatActivity extends AppCompatActivity {
 
+    private static final int RESULT_SAVE = 100;
     private Metronome metronome;
 
     @Override
@@ -101,5 +103,17 @@ public class EditBeatActivity extends AppCompatActivity {
         String btnText = isp ? "Start" : "Stop";
         Button toggleBtn = (Button) findViewById(R.id.toggleBtn);
         toggleBtn.setText(btnText);
+    }
+
+    public void handleSaveClick(View view) {
+        finishWithResult();
+    }
+
+    private void finishWithResult() {
+        // TODO: this does not work!
+        Intent intent = new Intent();
+        setResult(RESULT_SAVE, intent);
+        getParent().setResult(RESULT_SAVE, intent);
+        finish();
     }
 }

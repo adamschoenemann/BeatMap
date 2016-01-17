@@ -25,6 +25,7 @@ public class MetroApp extends Application {
     private void populateTestData() {
         DBHandler tdh = new DBHandler(this);
 
+        tdh.truncate();
         String trackName = "Track1";
         Track track = new Track();
         track.appendSequence(new Sequence(100, 4, 4, 10));
@@ -54,14 +55,20 @@ public class MetroApp extends Application {
 
         // get a single track
         TrackModel tm = tdh.getTrack(id);
-        // Assert.assertNotNull(tm);
-        // Assert.assertEquals(tm.id, tracks.get(0).id);
-        // Assert.assertEquals(tm.getTitle(), "Track1");
+        Assert.assertNotNull(tm);
+        Assert.assertEquals(tm.id, tracks.get(0).id);
+        Assert.assertEquals(tm.getTitle(), "Track1");
+
         Sequence[] seqs = tm.getSequences();
-        // Assert.assertEquals(seqs.length, 2);
-        // Assert.assertEquals(seqs[0].getBeat().getBPM(), 100);
-        // Assert.assertEquals(seqs[0].getBeat().getMeter().getUpper(), 4);
-        // Assert.assertEquals(seqs[0].getBeat().getMeter().getLower(), 4);
-        // Assert.assertEquals(seqs[0].getBars(), 4);
+        Assert.assertEquals(2, seqs.length);
+        Assert.assertEquals(seqs[0].getBeat().getBPM(), 100);
+        Assert.assertEquals(seqs[0].getBeat().getMeter().getUpper(), 4);
+        Assert.assertEquals(seqs[0].getBeat().getMeter().getLower(), 4);
+        Assert.assertEquals(seqs[0].getBars(), 10);
+
+        Assert.assertEquals(seqs[1].getBeat().getBPM(), 150);
+        Assert.assertEquals(seqs[1].getBeat().getMeter().getUpper(), 3);
+        Assert.assertEquals(seqs[1].getBeat().getMeter().getLower(), 8);
+        Assert.assertEquals(seqs[1].getBars(), 20);
     }
 }

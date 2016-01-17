@@ -100,7 +100,7 @@ public class DBHandler {
                 null,
                 null,
                 null,
-                null
+                "_id ASC"
         );
 
         c.moveToPosition(-1);
@@ -176,13 +176,18 @@ public class DBHandler {
         int id = c.getInt(0);
         String title = c.getString(1);
         track = new TrackModel(id, title);
+        for (Sequence seq : getSequences(track.id)) {
+            track.appendSequence(seq);
+        }
+
         Log.d("DBDEBUG", "Track: " + track);
         c.close();
         return track;
     }
 
     public void truncate() {
-
+        db.execSQL("DELETE FROM sequences");
+        db.execSQL("DELETE FROM tracks");
     }
 
 }

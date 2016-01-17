@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ import mta.beatmap.app.track.Track;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int ADD_SEQUENCE = 100;
     private List<SequenceVM> sequenceVMList;
     private DBHandler dbh;
 
@@ -69,17 +71,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onNewBeatClick(View view){
-        /*
-        Context context = getApplicationContext();
-        CharSequence text = "Hello toast!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-        */
-
         Intent intent = new Intent(this, EditBeatActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, ADD_SEQUENCE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("RESULT", "req: " + requestCode + ", result: " + resultCode);
     }
 
     @Override

@@ -81,5 +81,11 @@
             android:text="Start"
             android:onClick="toggleMetronome"
             android:id="@+id/toggleBtn"/>
+    <Button
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Save"
+            android:onClick="handleSaveClick"
+            android:id="@+id/button"/>
 
 </LinearLayout>
