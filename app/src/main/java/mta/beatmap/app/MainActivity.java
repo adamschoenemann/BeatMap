@@ -2,7 +2,6 @@ package mta.beatmap.app;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,14 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
-import mta.beatmap.app.metro.config.Beat;
-import mta.beatmap.app.metro.config.Meter;
-import mta.beatmap.app.persistence.db.TrackDBHandler;
+import mta.beatmap.app.persistence.db.DBHandler;
 import mta.beatmap.app.sequenceListRV.SequenceRVAdapter;
 import mta.beatmap.app.sequenceListRV.SequenceVM;
 import mta.beatmap.app.track.Sequence;
@@ -28,7 +22,7 @@ import mta.beatmap.app.track.Track;
 public class MainActivity extends AppCompatActivity {
 
     private List<SequenceVM> sequenceVMList;
-    private TrackDBHandler trackDBHandler;
+    private DBHandler DBHandler;
 
     private static final int ACTION_CREATE_SEQUENCE = 100;
     private static final int ACTION_EDIT_SEQUENCE = 101;
@@ -59,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
         int imgMeterId = R.mipmap.ic_add_white_48dp;
         int imgBpmId = R.mipmap.ic_music_note_white_48dp;
 
-        trackDBHandler = new TrackDBHandler(this);
-        Track track = trackDBHandler.getTrack("1");
+        DBHandler = new DBHandler(this);
+        Track track = DBHandler.getTrack("1");
 
         for (int i = 0; i < track.size(); i++){
             sequenceVMList.add(new SequenceVM(track.get(i), imgBarId, imgMeterId, imgBpmId));
@@ -68,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void testDB() {
-        TrackDBHandler tdh = new TrackDBHandler(this);
+        DBHandler tdh = new DBHandler(this);
 
         String trackID = "1";
         Track track = new Track();
         track.appendSequence(new Sequence(100, 4, 4, 10));
         track.appendSequence(new Sequence(150, 3, 8, 20));
-        tdh.upsert(trackID, track);
+        tdh.upsertTrack(trackID, track);
         Track res = tdh.getTrack(trackID);
 
         for (int i = 0; i < res.size(); i++) {

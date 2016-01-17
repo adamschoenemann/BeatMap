@@ -15,6 +15,7 @@ public final class DBContract {
     public static abstract class SequenceTable implements BaseColumns {
         public static final String TABLE_NAME = "sequences";
         public static final String COLUMN_NAME_ID = "id";
+        public static final String COLUMN_NAME_TRACK_ID = "track_id";
         public static final String COLUMN_NAME_BPM = "bpm";
         public static final String COLUMN_NAME_METER_NUMERATOR = "meter_numerator";
         public static final String COLUMN_NAME_METER_DENOMINATOR = "meter_denominator";
