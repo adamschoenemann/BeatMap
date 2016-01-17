@@ -1,4 +1,4 @@
-package mta.beatmap.app.sequenceListRV;
+package mta.beatmap.app.track;
 
 import mta.beatmap.app.track.Sequence;
 

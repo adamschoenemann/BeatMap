@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mta.beatmap.app.persistence.db.DBHandler;
-import mta.beatmap.app.sequenceListRV.SequenceRVAdapter;
-import mta.beatmap.app.sequenceListRV.SequenceVM;
+import mta.beatmap.app.persistence.db.models.TrackModel;
+import mta.beatmap.app.ui.views.util.SequenceRVAdapter;
+import mta.beatmap.app.track.SequenceVM;
 import mta.beatmap.app.track.Sequence;
 import mta.beatmap.app.track.Track;
 
@@ -31,9 +32,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 //        testDB();
 
-//        loadTrackListView();
+
+        loadTrackListView();
     }
 
     private void loadTrackListView(){
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         int imgBpmId = R.mipmap.ic_music_note_white_48dp;
 
         DBHandler = new DBHandler(this);
-        Track track = DBHandler.getTrack("1");
+        List<TrackModel> trackModels = DBHandler.getAllTracks();
+
+        Track track = trackModels.get(0);
 
         for (int i = 0; i < track.size(); i++){
             sequenceVMList.add(new SequenceVM(track.get(i), imgBarId, imgMeterId, imgBpmId));

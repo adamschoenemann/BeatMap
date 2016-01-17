@@ -1,7 +1,9 @@
-package mta.beatmap.app.sequenceListRV;
+package mta.beatmap.app.ui.views.util;
 
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +12,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import mta.beatmap.app.EditBeatActivity;
 import mta.beatmap.app.R;
+import mta.beatmap.app.track.SequenceVM;
 
 /**
  * Created by mickneupart on 17/01/16.
  */
 public class SequenceRVAdapter extends RecyclerView.Adapter<SequenceRVAdapter.TrackViewHolder> {
 
-    public class TrackViewHolder extends RecyclerView.ViewHolder {
+    public class TrackViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         CardView cv;
         TextView seqMeter;
         TextView seqBpm;
@@ -36,6 +40,12 @@ public class SequenceRVAdapter extends RecyclerView.Adapter<SequenceRVAdapter.Tr
             imgMeter = (ImageView)itemView.findViewById(R.id.seqImgMeter);
             imgBpm = (ImageView)itemView.findViewById(R.id.seqImgBpm);
             imgBars = (ImageView)itemView.findViewById(R.id.seqImgBar);
+
+            this.itemView.setOnClickListener(this);
+        }
+
+        public void onClick(View v) {
+            System.out.println("sequence clicked!");
         }
     }
 
