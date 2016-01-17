@@ -1,9 +1,7 @@
 package mta.beatmap.app.ui.views.util;
 
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import mta.beatmap.app.EditBeatActivity;
 import mta.beatmap.app.R;
 import mta.beatmap.app.track.SequenceVM;
 
@@ -45,6 +42,8 @@ public class SequenceRVAdapter extends RecyclerView.Adapter<SequenceRVAdapter.Tr
         }
 
         public void onClick(View v) {
+
+            SequenceRVAdapter.this.sequences.
             System.out.println("sequence clicked!");
         }
     }
