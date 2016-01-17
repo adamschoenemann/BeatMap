@@ -20,8 +20,8 @@
         </activity>
         <activity android:name=".EditBeatActivity" />
         <activity
-            android:name=".MetroActivity"
-            android:label="@string/title_activity_metro" >
+            android:name=".ui.activities.TracksListActivity"
+            android:label="@string/title_activity_tracks_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

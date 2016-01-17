@@ -34,4 +34,5 @@
     </string-array>
     <string name="title_activity_metro">MetroActivity</string>
     <string name="title_activity_track_player">TrackPlayerActivity</string>
+    <string name="title_activity_tracks_list">TracksListActivity</string>
 </resources>
