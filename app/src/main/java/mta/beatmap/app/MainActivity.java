@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        testDB();
 
         loadTrackListView();
     }
@@ -50,27 +49,13 @@ public class MainActivity extends AppCompatActivity {
         int imgBpmId = R.mipmap.ic_music_note_white_48dp;
 
         DBHandler = new DBHandler(this);
-        Track track = DBHandler.getTrack("1");
+        Track track = DBHandler.getTrack(1);
 
         for (int i = 0; i < track.size(); i++){
             sequenceVMList.add(new SequenceVM(track.get(i), imgBarId, imgMeterId, imgBpmId));
         }
     }
 
-    private void testDB() {
-        DBHandler tdh = new DBHandler(this);
-
-        String trackID = "1";
-        Track track = new Track();
-        track.appendSequence(new Sequence(100, 4, 4, 10));
-        track.appendSequence(new Sequence(150, 3, 8, 20));
-        tdh.upsertTrack(trackID, track);
-        Track res = tdh.getTrack(trackID);
-
-        for (int i = 0; i < res.size(); i++) {
-            System.out.println(i + ": " + res.get(i).toString());
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

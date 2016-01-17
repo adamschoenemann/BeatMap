@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import android.database.sqlite.SQLiteQueryBuilder;
+import android.util.Log;
 import mta.beatmap.app.metro.config.Beat;
 import mta.beatmap.app.metro.config.Meter;
 import mta.beatmap.app.persistence.db.models.TrackModel;
@@ -112,6 +114,7 @@ public class DBHandler {
             }
             tracks.add(track);
         }
+        c.close();
         return tracks;
     }
 
@@ -144,50 +147,54 @@ public class DBHandler {
             Sequence seq = new Sequence(bpm, meter_numerator, meter_denominator, bars);
             seqs.add(seq);
         }
+        seqCursor.close();
         return seqs;
     }
 
+    /**
+     *
+     * @param trackId
+     * @return TrackModel or null if not found
+     */
+    public TrackModel getTrack(int trackId) {
 
-    public Track getTrack(String trackID) {
-
-        String[] selectionVals = {trackID};
-
-        Cursor c = db.query(
+/*        Cursor c = db.query(
                 TrackTable.TABLE_NAME,    // The table to query
-                SEQUENCE_PROJECTION,    // The columns to return
-                WHERE_TRACK_ID, // The string for the WHERE clause
-                selectionVals, // The values for the WHERE clause
+                null,    // The columns to return
+                "id = ?", // The string for the WHERE clause
+                new String[]{Integer.toString(trackId)}, // The values for the WHERE clause
                 null,          // don't group the rows
                 null,          // don't filter by row groups
                 null           // Don't sort: No sort order
+        );*/
+
+        String query = SQLiteQueryBuilder.buildQueryString(
+                false,
+                TrackTable.TABLE_NAME,
+                null,
+                "tracks.id = " + trackId,
+                null,
+                null,
+                null,
+                null
         );
 
-        int bpm_index = c.getColumnIndexOrThrow(BPM_NAME);
-        int meter_numerator_index = c.getColumnIndexOrThrow(METER_NUMERATOR_NAME);
-        int meter_denominator_index = c.getColumnIndexOrThrow(METER_DENOMINATOR_NAME);
-        int bars_index = c.getColumnIndexOrThrow(BARS_NAME);
-
-        int bpm;
-        int meter_numerator;
-        int meter_denominator;
-        int bars;
-
-        c.moveToPosition(-1); // Start just before the first value
-
-        Track track = new Track();
-
-        // Loop while there is a next row
-        while (c.moveToNext()) {
-            bpm = c.getInt(bpm_index);
-            meter_numerator = c.getInt(meter_numerator_index);
-            meter_denominator = c.getInt(meter_denominator_index);
-            bars = c.getInt(bars_index);
-
-            Sequence seq = new Sequence(bpm, meter_numerator, meter_denominator, bars);
-            track.appendSequence(seq);
-        }
-
+        Log.d("DBDEBUG", query);
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+        TrackModel track = null;
+        Log.d("DBDEBUG", "id: " + String.valueOf(trackId));
+        Log.d("DBDEBUG", "Tracks found: " + c.getCount());
+        int id = c.getInt(0);
+        String title = c.getString(1);
+        track = new TrackModel(id, title);
+        Log.d("DBDEBUG", "Track: " + track);
+        c.close();
         return track;
+    }
+
+    public void truncate() {
+
     }
 
 }

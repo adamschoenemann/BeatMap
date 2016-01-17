@@ -24,29 +24,43 @@ public class MetroApp extends Application {
     private void populateTestData() {
         DBHandler tdh = new DBHandler(this);
 
-        String trackID = "1";
+        String trackName = "1";
         Track track = new Track();
         track.appendSequence(new Sequence(100, 4, 4, 10));
         track.appendSequence(new Sequence(150, 3, 8, 20));
-        tdh.upsertTrack(trackID, track);
+        tdh.upsertTrack(trackName, track);
 
-        trackID = "2";
+        trackName = "2";
         track = new Track();
         track.appendSequence(new Sequence(100, 4, 8, 4));
         track.appendSequence(new Sequence(160, 3, 4, 4));
-        tdh.upsertTrack(trackID, track);
+        tdh.upsertTrack(trackName, track);
 
-        trackID = "3";
+        trackName = "3";
         track = new Track();
         track.appendSequence(new Sequence(100, 6, 8, 2));
         track.appendSequence(new Sequence(160, 4, 4, 2));
         track.appendSequence(new Sequence(220, 4, 8, 10));
-        tdh.upsertTrack(trackID, track);
+        tdh.upsertTrack(trackName, track);
 
         List<TrackModel> tracks = tdh.getAllTracks();
-        Log.d("DB", "tracks in DB: " + tracks.size());
+        Log.d("DBDEBUG", "tracks in DB: " + tracks.size());
         for (TrackModel dbTrack : tracks) {
-            System.out.println("Track " + dbTrack.id + " has " + dbTrack.getSequences().length + " sequences.");
+            Log.d("DBDEBUG", "Track " + dbTrack.id + " has " + dbTrack.getSequences().length + " sequences.");
         }
+
+        int id = tracks.get(0).id;
+
+        // get a single track
+        TrackModel tm = tdh.getTrack(id);
+        assert tm != null;
+        assert tm.id == 1;
+        assert tm.getTitle() == "1";
+        Sequence[] seqs = tm.getSequences();
+        assert seqs.length == 2;
+        assert seqs[0].getBeat().getBPM() == 100;
+        assert seqs[0].getBeat().getMeter().getUpper() == 4;
+        assert seqs[0].getBeat().getMeter().getLower() == 4;
+        assert seqs[0].getBars() == 4;
     }
 }
