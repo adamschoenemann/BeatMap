@@ -18,6 +18,6 @@
         android:clickable="true"
         android:src="@mipmap/ic_add_white_48dp"
         android:id="@+id/btnNewBeat"
-        android:onClick="onNewBeatClick" />
+        android:onClick="onCreateSequence" />
 
 </LinearLayout>
