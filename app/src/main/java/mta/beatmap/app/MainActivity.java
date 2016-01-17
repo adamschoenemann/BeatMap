@@ -1,5 +1,6 @@
 package mta.beatmap.app;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import mta.beatmap.app.track.Sequence;
 import mta.beatmap.app.track.Track;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final int ACTION_CREATE_SEQUENCE = 0;
+    private static final int ACTION_EDIT_SEQUENCE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
+
     public void onNewBeatClick(View view){
         /*
         Context context = getApplicationContext();
@@ -53,7 +59,26 @@ public class MainActivity extends AppCompatActivity {
         */
 
         Intent intent = new Intent(this, EditBeatActivity.class);
-        startActivity(intent);
+        intent.setAction(EditBeatActivity.ACTION_CREATE);
+        startActivityForResult(intent, ACTION_CREATE_SEQUENCE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case ACTION_CREATE_SEQUENCE:
+                // If everything went well, we should get a new sequence to insert in the track
+                if (resultCode == Activity.RESULT_OK) {
+                    System.out.println("OK after creating sequence");
+                    // TODO read sequence from data
+                    // TODO append read sequence to track
+                } else {
+                    System.out.println("Not OK after creating sequence");
+                    // Nothing new: User cancelled. Do nothing.
+                }
+            case ACTION_EDIT_SEQUENCE:
+                System.out.println("Returned after editing sequence");
+        }
     }
 
     @Override

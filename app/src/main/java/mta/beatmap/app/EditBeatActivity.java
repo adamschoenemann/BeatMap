@@ -1,5 +1,8 @@
 package mta.beatmap.app;
 
+import android.app.Activity;
+import android.app.Notification;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +16,30 @@ public class EditBeatActivity extends AppCompatActivity {
 
     private Metronome metronome;
 
+    public final static String ACTION_EDIT = "edit";
+    public final static String ACTION_CREATE = "create";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_beat);
 
+        Intent intent = getIntent();
+        String action = intent.getAction();
+
+        // Java doesn't do switches on strings :/
+        if (action == ACTION_EDIT) {
+            System.out.println("Edit action chosen");
+        } else if (action == ACTION_CREATE) {
+            System.out.println("Create action chosen");
+        } else {
+            throw new NoSuchMethodError("Calling Intent must be ACTION_EDIT or ACTION_CREATE");
+        }
+
         metronome = new SimpleMetronome(this);
         loadSpinners();
+
+        // TODO Show track title
     }
 
 
@@ -98,8 +118,30 @@ public class EditBeatActivity extends AppCompatActivity {
     public void toggleMetronome(View view) {
         boolean isp = metronome.isPlaying();
         metronome.toggle();
-        String btnText = isp ? "Start" : "Stop";
+        String btnText = (String) getText(isp ? R.string.start_beat_btn : R.string.stop_beat_btn);
         Button toggleBtn = (Button) findViewById(R.id.toggleBtn);
         toggleBtn.setText(btnText);
     }
+
+    public void onDoneEditing(View view) {
+        System.out.println("clicked done editing");
+        // TODO Add to track
+        Intent data = new Intent();
+        setResult(Activity.RESULT_OK, data);
+        finish();
+    }
+
+    public void onDeleteBeat(View view) {
+        System.out.println("clicked delete beat");
+
+        // TODO consider asking user to verify
+        // TODO Delete this sequence from the current track
+        // TODO return to last screen
+    }
+
+    @Override
+    public void finishActivity(int requestCode) {
+        super.finishActivity(requestCode);
+    }
+
 }
