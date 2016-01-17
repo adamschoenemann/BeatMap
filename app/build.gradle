@@ -38,7 +38,7 @@ android {
          main {
              java {
                  exclude 'dk/aschoen/beatplanner/ui/**/*'
-                 exclude '**/MetroApp.java'
+                 exclude 'dk/aschoen/beatplanner/MetroApp.java'
              }
          }
          androidTest {

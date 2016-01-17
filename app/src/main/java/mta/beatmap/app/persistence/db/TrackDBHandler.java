@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import mta.beatmap.app.metro.config.Beat;
 import mta.beatmap.app.metro.config.Meter;
-import mta.beatmap.app.persistence.db.DBContract;
-import mta.beatmap.app.persistence.db.TrackDB;
 import mta.beatmap.app.track.Sequence;
 import mta.beatmap.app.track.Track;
 
@@ -19,18 +17,18 @@ public class TrackDBHandler {
 
     private SQLiteDatabase db;
     private final String[] PROJECTION = {
-            DBContract.TrackTable.COLUMN_NAME_BPM,
-            DBContract.TrackTable.COLUMN_NAME_METER_NUMERATOR,
-            DBContract.TrackTable.COLUMN_NAME_METER_DENOMINATOR,
-            DBContract.TrackTable.COLUMN_NAME_BARS
+            DBContract.SequenceTable.COLUMN_NAME_BPM,
+            DBContract.SequenceTable.COLUMN_NAME_METER_NUMERATOR,
+            DBContract.SequenceTable.COLUMN_NAME_METER_DENOMINATOR,
+            DBContract.SequenceTable.COLUMN_NAME_BARS
     };
-    private final String TABLE_NAME = DBContract.TrackTable.TABLE_NAME;
-    private final String WHERE_TRACK_ID = DBContract.TrackTable.COLUMN_NAME_TRACK_ID + "=?";
+    private final String TABLE_NAME = DBContract.SequenceTable.TABLE_NAME;
+    private final String WHERE_TRACK_ID = DBContract.SequenceTable.COLUMN_NAME_ID + "=?";
 
-    private final String BPM_NAME = DBContract.TrackTable.COLUMN_NAME_BPM;
-    private final String METER_NUMERATOR_NAME = DBContract.TrackTable.COLUMN_NAME_METER_NUMERATOR;
-    private final String METER_DENOMINATOR_NAME = DBContract.TrackTable.COLUMN_NAME_METER_DENOMINATOR;
-    private final String BARS_NAME = DBContract.TrackTable.COLUMN_NAME_BARS;
+    private final String BPM_NAME = DBContract.SequenceTable.COLUMN_NAME_BPM;
+    private final String METER_NUMERATOR_NAME = DBContract.SequenceTable.COLUMN_NAME_METER_NUMERATOR;
+    private final String METER_DENOMINATOR_NAME = DBContract.SequenceTable.COLUMN_NAME_METER_DENOMINATOR;
+    private final String BARS_NAME = DBContract.SequenceTable.COLUMN_NAME_BARS;
 
 
     public TrackDBHandler(Context context) {
@@ -52,8 +50,8 @@ public class TrackDBHandler {
         for (int i = 0; i < track.size(); i++) {
             ContentValues values = extractContent(track.get(i));
 
-            values.put(DBContract.TrackTable.COLUMN_NAME_TRACK_ID, trackID);
-            values.put(DBContract.TrackTable.COLUMN_NAME_BEAT_ID, i);
+            values.put(DBContract.SequenceTable.COLUMN_NAME_ID, trackID);
+            values.put(DBContract.SequenceTable.COLUMN_NAME_BEAT_ID, i);
 
             db.insert(TABLE_NAME, null, values);
         }
@@ -72,6 +70,44 @@ public class TrackDBHandler {
 
         return values;
     }
+
+    public Track[] getAllTracks() {
+        Cursor c = db.query(
+                TABLE_NAME,
+                PROJECTION,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        int bpm_index = c.getColumnIndexOrThrow(BPM_NAME);
+        int meter_numerator_index = c.getColumnIndexOrThrow(METER_NUMERATOR_NAME);
+        int meter_denominator_index = c.getColumnIndexOrThrow(METER_DENOMINATOR_NAME);
+        int bars_index = c.getColumnIndexOrThrow(BARS_NAME);
+
+        int bpm;
+        int meter_numerator;
+        int meter_denominator;
+        int bars;
+
+        c.moveToPosition(-1); // Start just before the first value
+
+        Track track = new Track();
+
+        // Loop while there is a next row
+        while (c.moveToNext()) {
+            bpm = c.getInt(bpm_index);
+            meter_numerator = c.getInt(meter_numerator_index);
+            meter_denominator = c.getInt(meter_denominator_index);
+            bars = c.getInt(bars_index);
+
+            Sequence seq = new Sequence(bpm, meter_numerator, meter_denominator, bars);
+            track.appendSequence(seq);
+        }
+    }
+
 
     public Track getTrack(String trackID) {
 

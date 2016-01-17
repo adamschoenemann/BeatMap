@@ -13,6 +13,8 @@ import mta.beatmap.app.R;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import mta.beatmap.app.persistence.db.TrackDBHandler;
 import mta.beatmap.app.ui.views.util.ContextMenuRecyclerView;
 import static mta.beatmap.app.ui.views.util.ContextMenuRecyclerView.RecyclerViewContextMenuInfo;
 
@@ -22,6 +24,7 @@ public class TracksListActivity extends AppCompatActivity {
     private LinearLayoutManager mLayoutManager;
     private TracksListAdapter mAdapter;
     private List<String> tracks;
+    private TrackDBHandler tdb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,10 @@ public class TracksListActivity extends AppCompatActivity {
         String[] initialTracks = {
             "Track1","Track2","Track3"
         };
+
+        tdb = new TrackDBHandler(this);
+
+        tdb.g
 
         tracks = new ArrayList<String>();
         tracks.addAll(Arrays.asList(initialTracks));
