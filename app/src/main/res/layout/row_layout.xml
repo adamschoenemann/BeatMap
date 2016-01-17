@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:id="@+id/seq"
+    app:cardElevation="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:weightSum="3"
+        android:background="@android:color/holo_purple">
+
+        <ImageView
+            android:id="@+id/seqImgMeter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_add_white_48dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/seqTextMeter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/seqImgMeter"
+            android:text="Meter"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/seqImgBpm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_music_note_white_48dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/seqTextBpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="BPM"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/seqImgBpm"/>
+
+        <ImageView
+            android:id="@+id/seqImgBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_short_text_white_48dp"
+            android:layout_weight="1"/>
+
+        <TextView
+            android:id="@+id/seqTextBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Bars"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/seqImgBar"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
