@@ -41,7 +41,7 @@ public class SequenceRVAdapter extends RecyclerView.Adapter<SequenceRVAdapter.Tr
 
     private List<SequenceVM> sequences;
 
-    SequenceRVAdapter(List<SequenceVM> sequences){
+    public SequenceRVAdapter(List<SequenceVM> sequences){
         this.sequences = sequences;
     }
 
