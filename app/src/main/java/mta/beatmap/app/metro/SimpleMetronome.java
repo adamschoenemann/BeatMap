@@ -5,9 +5,8 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
-import dk.aschoen.beatplanner.core.Beat;
-import dk.aschoen.beatplanner.core.Meter;
-import dk.aschoen.beatplanner.core.Metronome;
+import mta.beatmap.app.metro.config.Beat;
+import mta.beatmap.app.metro.config.Meter;
 
 /**
  * Created by Adam on 2016-01-16.

@@ -4,9 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
-import dk.aschoen.beatplanner.core.Beat;
-import dk.aschoen.beatplanner.core.Meter;
-import dk.aschoen.beatplanner.core.Metronome;
+import mta.beatmap.app.metro.config.Beat;
+import mta.beatmap.app.metro.config.Meter;
+import mta.beatmap.app.metro.Metronome;
 import mta.beatmap.app.metro.SimpleMetronome;
 
 public class EditBeatActivity extends AppCompatActivity {

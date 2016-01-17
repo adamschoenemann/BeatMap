@@ -1,8 +1,9 @@
-package mta.beatmap.app;
+package mta.beatmap.app.persistence.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import mta.beatmap.app.persistence.db.DBContract;
 
 /**
  * Created by Wolf on 16/01/2016.

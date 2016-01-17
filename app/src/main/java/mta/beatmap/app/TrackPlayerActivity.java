@@ -7,12 +7,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import dk.aschoen.beatplanner.core.Beat;
-import dk.aschoen.beatplanner.core.Meter;
-import dk.aschoen.beatplanner.core.Track;
-import dk.aschoen.beatplanner.core.TrackPlayer;
+import mta.beatmap.app.metro.config.Beat;
+import mta.beatmap.app.metro.config.Meter;
+import mta.beatmap.app.track.Track;
+import mta.beatmap.app.track.TrackPlayer;
 import mta.beatmap.app.metro.SimpleMetronome;
 
+@Deprecated
+/**
+ * @deprecated Used for testing only!
+ */
 public class TrackPlayerActivity extends AppCompatActivity implements TrackPlayer.TrackFinishedListener {
 
     private Track track;

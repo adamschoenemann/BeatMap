@@ -7,8 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import dk.aschoen.beatplanner.core.Sequence;
-import dk.aschoen.beatplanner.core.Track;
+import mta.beatmap.app.persistence.db.TrackDBHandler;
+import mta.beatmap.app.track.Sequence;
+import mta.beatmap.app.track.Track;
 
 public class MainActivity extends AppCompatActivity {
 

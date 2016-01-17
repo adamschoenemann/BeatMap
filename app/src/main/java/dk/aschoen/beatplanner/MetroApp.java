@@ -10,7 +10,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
 
-import dk.aschoen.beatplanner.core.Metronome;
+import mta.beatmap.app.metro.Metronome;
 
 public class MetroApp extends Application
 {

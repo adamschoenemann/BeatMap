@@ -1,14 +1,16 @@
-package mta.beatmap.app;
+package mta.beatmap.app.persistence.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import dk.aschoen.beatplanner.core.Beat;
-import dk.aschoen.beatplanner.core.Meter;
-import dk.aschoen.beatplanner.core.Sequence;
-import dk.aschoen.beatplanner.core.Track;
+import mta.beatmap.app.metro.config.Beat;
+import mta.beatmap.app.metro.config.Meter;
+import mta.beatmap.app.persistence.db.DBContract;
+import mta.beatmap.app.persistence.db.TrackDB;
+import mta.beatmap.app.track.Sequence;
+import mta.beatmap.app.track.Track;
 
 /**
  * Created by Wolf on 16/01/2016.

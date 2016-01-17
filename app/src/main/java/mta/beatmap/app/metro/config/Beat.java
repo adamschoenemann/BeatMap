@@ -1,4 +1,4 @@
-package dk.aschoen.beatplanner.core;
+package mta.beatmap.app.metro.config;
 
 public class Beat
 {

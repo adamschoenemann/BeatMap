@@ -1,4 +1,4 @@
-package mta.beatmap.app;
+package mta.beatmap.app.persistence.db;
 
 import android.provider.BaseColumns;
 

@@ -10,9 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import dk.aschoen.beatplanner.core.Beat;
-import dk.aschoen.beatplanner.core.Meter;
-import dk.aschoen.beatplanner.core.Metronome;
+import mta.beatmap.app.metro.config.Beat;
+import mta.beatmap.app.metro.config.Meter;
+import mta.beatmap.app.metro.Metronome;
 
 @Deprecated
 /**

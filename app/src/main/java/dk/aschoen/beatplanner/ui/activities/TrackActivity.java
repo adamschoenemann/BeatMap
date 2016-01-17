@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import dk.aschoen.beatplanner.MetroApp;
 import dk.aschoen.beatplanner.R;
-import dk.aschoen.beatplanner.core.Metronome;
-import dk.aschoen.beatplanner.core.Sequence;
+import mta.beatmap.app.metro.Metronome;
+import mta.beatmap.app.track.Sequence;
 import dk.aschoen.beatplanner.ui.widgets.SequenceView;
 
 public class TrackActivity  extends Activity

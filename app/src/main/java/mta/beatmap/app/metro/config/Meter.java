@@ -2,7 +2,7 @@
 // Translated by CS2J (http://www.cs2j.com): 2014-07-29 22:02:11
 //
 
-package dk.aschoen.beatplanner.core;
+package mta.beatmap.app.metro.config;
 
 
 

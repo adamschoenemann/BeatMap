@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import dk.aschoen.beatplanner.MetroApp;
 import dk.aschoen.beatplanner.R;
-import dk.aschoen.beatplanner.core.Metronome;
+import mta.beatmap.app.metro.Metronome;
 
 
 public class MainActivity extends Activity {

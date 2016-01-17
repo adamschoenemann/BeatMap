@@ -13,9 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 
 import dk.aschoen.beatplanner.R;
-import dk.aschoen.beatplanner.core.Beat;
-import dk.aschoen.beatplanner.core.Meter;
-import dk.aschoen.beatplanner.core.Sequence;
+import mta.beatmap.app.metro.config.Beat;
+import mta.beatmap.app.metro.config.Meter;
+import mta.beatmap.app.track.Sequence;
 import dk.aschoen.beatplanner.ui.views.LowerMeterSpinner;
 import dk.aschoen.beatplanner.ui.views.UpperMeterSpinner;
 
