@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.provider.BaseColumns;
 import android.util.Log;
 import mta.beatmap.app.metro.config.Beat;
 import mta.beatmap.app.metro.config.Meter;
@@ -30,7 +31,7 @@ public class DBHandler {
             SequenceTable.COLUMN_NAME_METER_DENOMINATOR,
             SequenceTable.COLUMN_NAME_BARS
     };
-    private final String WHERE_TRACK_ID = TrackTable.COLUMN_NAME_ID + "=?";
+    private final String WHERE_TRACK_ID = BaseColumns._ID + "=?";
 
     private final String BPM_NAME = SequenceTable.COLUMN_NAME_BPM;
     private final String METER_NUMERATOR_NAME = SequenceTable.COLUMN_NAME_METER_NUMERATOR;
@@ -158,29 +159,16 @@ public class DBHandler {
      */
     public TrackModel getTrack(int trackId) {
 
-/*        Cursor c = db.query(
+        Cursor c = db.query(
                 TrackTable.TABLE_NAME,    // The table to query
                 null,    // The columns to return
-                "id = ?", // The string for the WHERE clause
+                "_id = ?", // The string for the WHERE clause
                 new String[]{Integer.toString(trackId)}, // The values for the WHERE clause
                 null,          // don't group the rows
                 null,          // don't filter by row groups
                 null           // Don't sort: No sort order
-        );*/
-
-        String query = SQLiteQueryBuilder.buildQueryString(
-                false,
-                TrackTable.TABLE_NAME,
-                null,
-                "tracks.id = " + trackId,
-                null,
-                null,
-                null,
-                null
         );
 
-        Log.d("DBDEBUG", query);
-        Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
         TrackModel track = null;
         Log.d("DBDEBUG", "id: " + String.valueOf(trackId));

@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
         int imgBpmId = R.mipmap.ic_music_note_white_48dp;
 
         DBHandler = new DBHandler(this);
-        Track track = DBHandler.getTrack(1);
+        Track track = new Track();
+        // Track track = DBHandler.getTrack(1);
 
         for (int i = 0; i < track.size(); i++){
             sequenceVMList.add(new SequenceVM(track.get(i), imgBarId, imgMeterId, imgBpmId));

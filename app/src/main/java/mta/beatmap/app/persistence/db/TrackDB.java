@@ -19,7 +19,6 @@ public class TrackDB extends SQLiteOpenHelper {
     private static final String SQL_CREATE_SEQUENCES =
             "CREATE TABLE " + DBContract.SequenceTable.TABLE_NAME + " (" +
                     DBContract.SequenceTable._ID + ID_TYPE + " PRIMARY KEY," +
-                    DBContract.SequenceTable.COLUMN_NAME_ID + ID_TYPE + COMMA_SEP +
                     DBContract.SequenceTable.COLUMN_NAME_TRACK_ID + ID_TYPE + COMMA_SEP +
                     DBContract.SequenceTable.COLUMN_NAME_BARS + UINT_TYPE + COMMA_SEP +
                     DBContract.SequenceTable.COLUMN_NAME_METER_NUMERATOR + UINT_TYPE + COMMA_SEP +
@@ -30,7 +29,6 @@ public class TrackDB extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TRACKS =
             "CREATE TABLE " + DBContract.TrackTable.TABLE_NAME + " (" +
                     DBContract.TrackTable._ID + ID_TYPE + " PRIMARY KEY," +
-                    DBContract.TrackTable.COLUMN_NAME_ID + ID_TYPE + COMMA_SEP +
                     DBContract.TrackTable.COLUMN_NAME_TITLE + STRING_TYPE +
                     " )";
 
