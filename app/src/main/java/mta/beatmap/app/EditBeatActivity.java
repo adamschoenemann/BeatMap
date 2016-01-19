@@ -1,6 +1,7 @@
 package mta.beatmap.app;
 
 import android.content.Intent;
+import android.net.ParseException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -95,6 +96,9 @@ public class EditBeatActivity extends AppCompatActivity {
 
         });
 
+        EditText editBars = (EditText) findViewById(R.id.editBar);
+        editBars.setText("4");
+
     }
 
     public void toggleMetronome(View view) {
@@ -109,11 +113,24 @@ public class EditBeatActivity extends AppCompatActivity {
         finishWithResult();
     }
 
+    int getBars() {
+        try {
+            return Integer.parseInt(String.valueOf(((EditText) findViewById(R.id.editBar)).getText()));
+        } catch (NumberFormatException ex){
+            return 4;
+        }
+
+    }
     private void finishWithResult() {
-        // TODO: this does not work!
         Intent intent = new Intent();
         setResult(RESULT_SAVE, intent);
-        getParent().setResult(RESULT_SAVE, intent);
+        intent.putExtra("bpm", metronome.getBPM());
+        intent.putExtra("meter.upper", metronome.getMeter().getUpper());
+        intent.putExtra("meter.lower", metronome.getMeter().getLower());
+        intent.putExtra("bars", getBars());
+        if (getParent() != null) {
+            getParent().setResult(RESULT_SAVE, intent);
+        }
         finish();
     }
 }

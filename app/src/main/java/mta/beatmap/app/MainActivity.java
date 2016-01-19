@@ -78,7 +78,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        Bundle extras = data.getExtras();
         Log.d("RESULT", "req: " + requestCode + ", result: " + resultCode);
+        Log.d("RESULT", "bpm: " + extras.getInt("bpm"));
+        Log.d("RESULT", "upper:" + extras.getInt("upper"));
+        Log.d("RESULT", "lower:" + extras.getInt("lower"));
+        Log.d("RESULT", "bars:" + extras.getInt("bars"));
     }
 
     @Override
