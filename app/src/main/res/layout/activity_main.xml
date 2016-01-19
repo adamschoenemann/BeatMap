@@ -21,8 +21,7 @@
         android:clickable="true"
         android:src="@mipmap/ic_add_white_48dp"
         android:id="@+id/btnNewBeat"
-        android:onClick="onNewBeatClick"
+        android:onClick="onCreateSequence"
         android:layout_gravity="bottom|right" />
-
 
 </android.support.design.widget.CoordinatorLayout>

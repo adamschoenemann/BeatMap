@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".EditBeatActivity"/>
+        <activity android:name=".EditSequenceActivity" />
         <activity
                 android:name=".ui.activities.TracksListActivity"
                 android:label="@string/title_activity_tracks_list">

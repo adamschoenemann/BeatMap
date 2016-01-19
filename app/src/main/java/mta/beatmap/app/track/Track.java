@@ -31,6 +31,15 @@ public class Track
         sequences.add(i, new Sequence(beat, reps));
     }
 
+    public void set(int index, Sequence sequence) {
+        this.sequences.set(index, sequence);
+    }
+
+    public void remove(int index) {
+        this.sequences.remove(index);
+    }
+
+
     // METER BPM REPS
     // 4/4   180 4
     private static Sequence parseSequence(String line) {
